@@ -1,10 +1,11 @@
 package runProject1;
 
+import kiosk.Kiosk;
+
 public class RunProject1 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+			new Kiosk().run();
 	}
 
 }
