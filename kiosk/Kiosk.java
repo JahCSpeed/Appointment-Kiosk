@@ -3,6 +3,9 @@ package kiosk;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import schedule.appointment.date.Date;
+import schedule.appointment.patient.Patient;
+
 @SuppressWarnings("unused")
 public class Kiosk {
 	//Will determine if the while loop runs or not
@@ -11,12 +14,16 @@ public class Kiosk {
 	private Scanner scanInput;
 	//Deliminaters for string tokenizer
 	private String delim;
+	//String tokenizer for whole input
+	
 	
 	public Kiosk() {
-		//Initialize global variables
+		//Initialize instance variables
 		this.isRunning = false;
 		this.delim = "\n";
-		this.scanInput = new Scanner(System.in).useDelimiter(delim);
+		this.scanInput = new Scanner(System.in);
+		
+				
 
 	}
 	public void run(){
@@ -33,8 +40,29 @@ public class Kiosk {
 	private void captureInput(Scanner sc) {
 		while(sc.hasNextLine()) {
 			String input = sc.nextLine();
-			int intendingCommand = getCommand(readCommand(input));
-			System.out.println(intendingCommand);
+			String[] tokens = input.split("\\s+");
+			
+			for(int i = 0; i < tokens.length; i++) {
+				int intendingCommand = getCommand(tokens[i++]);
+				if(intendingCommand == -1) {
+					System.out.println("Invalid command!");
+					break;
+				}
+				Date patientDob = readDate(tokens[i++]);
+				if(!patientDob.isValid()) {
+					System.out.println("Invalid date of birth!");
+					break;
+				}else if(patientDob.compareTo(new Date()) == 1) {
+					System.out.println("Date of birth invalid -> it is a future date.");	
+					break;
+				}
+				Patient patient = new Patient(tokens[i++],tokens[i++],patientDob);
+				System.out.println(intendingCommand);
+				System.out.println(patient.toString());
+				break;
+			}
+			
+			
 			
 		}
 		sc.close();
@@ -68,23 +96,11 @@ public class Kiosk {
 		return -1;
 		
 	}
-	
 	/*
-	 * Parse input string and just take the command
+	 * Parse input string and just take the date
 	 */
-	private String readCommand(String input) {
-		String intendingCommand = "";
-		try {
-			String[] splitString = input.split("\\s+");
-			intendingCommand = splitString[0];
-			
-		}catch(NullPointerException e) {
-			intendingCommand = "";
-		}catch(IndexOutOfBoundsException e) {
-			intendingCommand = "";
-		}
-		return intendingCommand;
+	private Date readDate(String input) {
+		return new Date(input);
 	}
-	
 	
 }
