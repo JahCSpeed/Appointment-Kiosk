@@ -2,6 +2,11 @@ package schedule.appointment.date;
 
 import java.util.Calendar;
 
+/**
+ The date class creates valid dates (in the mm/dd/yyyy format).
+ Used for knowing past and future dates by comparing the date in question to today's date.
+ @author Jah C Speed,
+ */
 public class Date implements Comparable<Date> {
 	private int year;
 	private int month;
@@ -28,6 +33,10 @@ public class Date implements Comparable<Date> {
 		this.day = cal.get(Calendar.DATE);
 	}
 
+	/**
+	 Checks this date and sees if this date is a valid date on the calendar.
+	 @return false if the date is not valid, true otherwise.
+	 */
 	public boolean isValid() {
 		
 		if(this.month == -1 || this.day == -1 || this.year == -1) {
@@ -35,6 +44,10 @@ public class Date implements Comparable<Date> {
 		}
 		
 		if(!checkRange(this.month,0,11) || !checkRange(this.year,1,9999)) {
+			return false;
+		}
+
+		if((this.month == 1) && (this.day > 29) && (!isLeapYear(this.year))){
 			return false;
 		}
 		
@@ -55,8 +68,12 @@ public class Date implements Comparable<Date> {
 		return true;
 	}
 
-	/*
-	 * Compare the two dates, 0 means they are equal, -1 less than, 1 means future date
+	/**
+	 Compare this date with a date in question and returns the type of date it is.
+	 @param date The date being compared to this date.
+	 @return 0 if the dates are the same
+	 		-1 if this date is before the param date
+	 		1 if this date is later than the param date
 	 */
 	@Override
 	public int compareTo(Date date) {
