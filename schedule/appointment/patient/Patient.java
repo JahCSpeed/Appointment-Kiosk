@@ -18,7 +18,7 @@ public class Patient implements Comparable<Patient> {
 	}
 	@Override
 	public String toString() {
-		return fname + lname + ", D0B: " + dob.toString();
+		return fname + " " + lname + ", D0B: " + dob.toString();
 	}
 
 	@Override

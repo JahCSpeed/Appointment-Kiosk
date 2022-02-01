@@ -18,6 +18,7 @@ public class Kiosk {
 	//Scanner to read userInput
 	private Scanner scanInput;
 	private String delim;
+	private Schedule mainSchedule;
 	
 	
 	
@@ -26,11 +27,13 @@ public class Kiosk {
 		this.isRunning = false;
 		this.delim = "\n";
 		this.scanInput = new Scanner(System.in);
+		this.mainSchedule = new Schedule();
 				
 
 	}
 	public void run(){
 		//Start of while loop to get user commands
+		System.out.println("Kiosk running. Ready to process transactions.");
 		this.isRunning = !this.isRunning; 
 		while(isRunning) {
 			captureInput(scanInput);
@@ -44,35 +47,39 @@ public class Kiosk {
 		while(sc.hasNextLine()) {
 			String input = sc.nextLine();
 			String[] tokens = input.split("\\s+");
-			
+			Date patientDob = null;
+			Patient patient = null;
+			Date apptDate = null;
+			Time apptTime = null;
+			Timeslot apptTimeslot = null;
+			Location appLocal = null;
+			int intendingCommand = -1;
 			for(int i = 0; i < tokens.length; i++) {
-				int intendingCommand = getCommand(tokens[i++]);
-				if(this.doNoNameCommand(intendingCommand) == 0) {
-					break;
-				}
-				Date patientDob = readDate(tokens[i++]);
-				if(!this.checkValidBDate(patientDob)) {
-					break;
-				}
-				
-				Patient patient = new Patient(tokens[i++],tokens[i++],patientDob);
-				
-				Date apptDate = readDate(tokens[i++]);
-				if(!this.checkValidAppDate(apptDate)) {
-					break;
-				}
-				
-				Time apptTime = readTime(tokens[i++]);
-				if(!this.checkTime(apptTime)) {
-					break;
-				}
-				
-				Timeslot apptTimeslot = new Timeslot(apptDate, apptTime);
-				
-				Location appLocal = this.readLocation(tokens[i++]);
-				if(!this.checkLocation(appLocal)) {
-					break;
-				}
+				try {
+					intendingCommand = getCommand(tokens[i++]);
+					
+					if(this.doNoNameCommand(intendingCommand) == 0) {return;}
+					
+					patientDob = readDate(tokens[i++]);
+					
+					if(!this.checkValidBDate(patientDob)) {break;}
+					
+					patient = new Patient(tokens[i++],tokens[i++],patientDob);
+					
+					apptDate = readDate(tokens[i++]);
+					
+					if(!this.checkValidAppDate(apptDate)) {break;}
+					
+					apptTime = readTime(tokens[i++]);
+					
+					if(!this.checkTime(apptTime)) {break;}
+					
+					apptTimeslot = new Timeslot(apptDate, apptTime);
+					
+					appLocal = this.readLocation(tokens[i++]);
+					
+					if(!this.checkLocation(appLocal)) {break;}
+				}catch(ArrayIndexOutOfBoundsException e) {}
 				doCommand(intendingCommand, patient, apptTimeslot, appLocal);
 				break;
 			}
@@ -84,15 +91,22 @@ public class Kiosk {
 	}
 	
 	private void doCommand(int command, Patient patient, Timeslot time, Location local) {
+		Appointment appt = new Appointment(patient, time, local);
 		switch(command) {
 			case 0:
-				local.add(new Appointment(patient, time, local));
+				if(this.checksBeforeAdd(appt)) {
+					this.mainSchedule.add(appt);
+					System.out.println("Appointment booked and added to the schedule.");
+				}
 				break;
 			case 1:
-				local.remove(new Appointment(patient, time, local));
+				if(!this.mainSchedule.remove(appt)) {
+					System.out.println("Appointment cancelled.");
+				}
 				break;
 			case 2:
-				//while(this.mainSchedule.remove(new Appointment(patient, time, local))) {}
+				this.mainSchedule.removeAll(patient);
+				System.out.println("All appointments for " + patient.toString() +" have been cancelled.");
 				break;
 			default:
 				break;
@@ -101,7 +115,7 @@ public class Kiosk {
 	private int doNoNameCommand(int command) {
 		switch(command) {
 			case 3:
-				printLocationsSchedule();
+				this.mainSchedule.print();
 				return 0;
 			case 4:
 				return 0;
@@ -157,12 +171,6 @@ public class Kiosk {
 		return null;
 	}
 	
-	private void printLocationsSchedule() {
-		Location[] allLocations = Location.values();
-		for(Location l : allLocations) {
-			l.getSchedule().print();
-		}
-	}
 	/*
 	 * Parse input string and just take the date
 	 */
@@ -179,7 +187,7 @@ public class Kiosk {
 	
 	
 	private void endKiosk() {
-		System.out.println(" Kiosk session ended.");
+		System.out.println("Kiosk session ended.");
 		this.isRunning = !this.isRunning;
 	}
 	
@@ -216,6 +224,30 @@ public class Kiosk {
 	private boolean checkLocation(Location local){
 		if(local == null) {
 			System.out.println("Invalid location!");
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean checksBeforeAdd(Appointment appt) {
+		if(this.mainSchedule.findAppointment(appt) != -1) {
+			System.out.println("Same appointment exists in the schedule.");
+			return false;
+		}
+		if(this.mainSchedule.findTimeSlotAtLocation(appt) != -1) {
+			System.out.println("Time slot has been taken at this location.");
+			return false;
+		}
+		if(this.mainSchedule.findTimeSlotForPatient(appt) != -1) {
+			System.out.println("Same patient cannot book an appointment with the same date.");
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean checksBeforeRemove(Appointment appt) {
+		if(this.mainSchedule.findAppointment(appt) != -1) {
+			System.out.println("Not cancelled, appointment does not exist.");
 			return false;
 		}
 		return true;

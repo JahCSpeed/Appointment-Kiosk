@@ -35,4 +35,10 @@ public class Appointment {
 	public Timeslot getTimeslot() {
 		return this.slot;
 	}
+	public Location getLocation() {
+		return this.location;
+	}
+	public Patient getPatient() {
+		return this.patient;
+	}
 }

@@ -1,0 +1,5 @@
+Possiblle Problems to Ask about:
+
+Example Appoitment: C 8/31/1978 Jane Doe 1/19/2022 9:15 union
+	We want to cancel this appointment but since the appt date is invalid should we
+		print ("Not cancelled, appointment does not exist."), or ("Appointment date invalid -> must be a future date.")

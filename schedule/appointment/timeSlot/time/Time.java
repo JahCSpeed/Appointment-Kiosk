@@ -3,23 +3,26 @@ package schedule.appointment.timeSlot.time;
 public class Time implements Comparable<Time> {
 	private int hour;
 	private int minute;
+	
 	private final int OPENINGHOUR = 9;
-	private final int OPENINGMIN = 0;
+	private final int OPENINGMIN = 00;
 	private final int CLOSINGHOUR = 16;
 	private final int CLOSINGMIN = 45;
-	
+	private final int INTERVAL = 15;
+	private final int MAXHOUR = 23;
+	private final int MAXMINUTE = 59;
 	public Time(String time) {
 		parseTime(time);
 	}
 	public boolean isValid() {
-		if(this.hour < 0 || this.hour > 23) {
+		if(this.hour < 0 || this.hour > MAXHOUR) {
 			return false;
 		}
 		
-		if(this.minute < 0 || this.minute > 59) {
+		if(this.minute < 0 || this.minute > MAXMINUTE) {
 			return false;
 		}
-		if((this.minute % 15) != 0) {
+		if((this.minute % INTERVAL) != 0) {
 			return false;
 		}
 		boolean openingValue = this.hour >= OPENINGHOUR && this.minute >= OPENINGMIN;
@@ -34,11 +37,11 @@ public class Time implements Comparable<Time> {
 	
 	@Override
 	public String toString() {
-		return this.hour + ":" + this.minute;
+		return this.hour + ":" + (this.minute == 0? "00":this.minute);
 	}
 	
 	/*
-	 * Will return 1 if this.obj > perameter time, 0 if ==, -1 if less than
+	 * Will return 1 if this.obj > time, 0 if equal, -1 if less than
 	 */
 	@Override
 	public int compareTo(Time time) {
@@ -57,7 +60,7 @@ public class Time implements Comparable<Time> {
 		}
 	}
 	/*
-	 * Will parse the string time in between hours and mins
+	 * Will parse the string time in between hours and min
 	 */
 	public void parseTime(String time) {
 		String[] tokens = time.split(":");

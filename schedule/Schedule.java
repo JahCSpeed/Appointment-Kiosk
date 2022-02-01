@@ -1,82 +1,105 @@
 package schedule;
 
 import schedule.appointment.Appointment;
+import schedule.appointment.patient.Patient;
 
 public class Schedule {
 	
 	private Appointment [] appointments;
-
 	private int numAppts;
 	private final int INCREASESIZE = 4;
+	private final int NOT_FOUND = -1;
+	private final int ZERO = 0;
 	public Schedule() {
-		this.appointments = new Appointment[0];
-		this.numAppts = 0;
+		this.appointments = new Appointment[ZERO];
+		this.numAppts = ZERO;
 		
 	}
 	private int find(Appointment appt) { //return the index, or NOT_FOUND
-		for(int i = 0; i < numAppts; i++) {
-			if(appointments[i].equals(appt)) {
+		for(int i = ZERO; i < this.numAppts; i++) {
+			if(this.appointments[i].equals(appt)) {
 				return i;
 			}
 		}
-		return -1;
+		return NOT_FOUND;
 	} 
 
 	private void grow() { //increase the capacity of the container by 4
 		Appointment [] prevList = this.appointments;
 		this.appointments = new Appointment[this.numAppts + INCREASESIZE];
-		for(int i = 0; i < prevList.length; i++) {
+		for(int i = ZERO; i < prevList.length; i++) {
 			this.appointments[i] = prevList[i];
 		}
 	}
 
 	public boolean add(Appointment appt) {
-		if(this.find(appt) != -1) {
-			System.out.println("Same appointment exists in the schedule.");
-			return false;
-		}
-		if(this.findTimeSlot(appt) != -1) {
-			System.out.println("Time slot has been taken at this location.");
-			return false;
-		}
-		if(numAppts == this.appointments.length) {
+		if(this.numAppts == this.appointments.length) {
 			this.grow();
 		}
-		appointments[this.numAppts++] = appt;
-		System.out.println("Appointment booked and added to the schedule.");
+		this.appointments[this.numAppts++] = appt;
 		return true;
 	}
 
 	public boolean remove(Appointment appt) {
 		int index = this.find(appt);
-		if(index == -1) {
+		if(index == NOT_FOUND) {
 			return false;
 		}
-		for(int i = index; i < numAppts - 1; i++) {
-			appointments[i] = appointments[i + 1];
+		for(int i = index; i < this.numAppts - 1; i++) {
+			this.appointments[i] = this.appointments[i + 1];
 		}
-		appointments[numAppts] = null;
-		numAppts--;
+		this.appointments[this.numAppts] = null;
+		this.numAppts--;
+		return true;
+	}
+	
+	/*
+	 * Removes all patients by a given name
+	 */
+	public boolean removeAll(Patient patient) {
+		for(int i = ZERO; i < this.numAppts; i++) {
+			if(this.appointments[i].getPatient().compareTo(patient) == ZERO) {
+				this.remove(this.appointments[i]);
+			}
+		}
 		return true;
 	}
 
 	public void print() { //print all the appointments in current order
-		for(int i = 0; i < numAppts; i++) {
-			System.out.println(appointments[i].toString());
+		System.out.println("\n" + "*list of appointments in the schedule*");
+		for(int i = ZERO; i < this.numAppts; i++) {
+			System.out.println(this.appointments[i].toString());
 		}
+		System.out.println("*end of schedule*" + "\n");
 	}
 	
-	private int findTimeSlot(Appointment appt) { //return the index, or NOT_FOUND
-		for(int i = 0; i < numAppts; i++) {
-			if(appointments[i].getTimeslot().compareTo(appt.getTimeslot()) == 0) {
+	public int findTimeSlotAtLocation(Appointment appt) { //return the index, or NOT_FOUND
+		for(int i = ZERO; i < this.numAppts; i++) {
+			if(this.appointments[i].getTimeslot().compareTo(appt.getTimeslot()) == ZERO && 
+					(this.appointments[i].getLocation().equals(appt.getLocation()) == ZERO) ){
 				return i;
 			}
+			
 		}
-		return -1;
+		return NOT_FOUND;
 	}
-
-	public void printByZip() { //sort by zip codes and print
 	
+	public int findTimeSlotForPatient(Appointment appt) { //return the index, or NOT_FOUND
+		for(int i = ZERO; i < this.numAppts; i++) {
+			if(this.appointments[i].getTimeslot().compareTo(appt.getTimeslot()) == ZERO &&
+					this.appointments[i].getPatient().compareTo(appt.getPatient()) == ZERO) {
+				return i;
+			}
+			
+		}
+		return NOT_FOUND;
+	}
+	
+	public int findAppointment(Appointment appt) {
+		return this.find(appt);
+	}
+	public void printByZip() { //sort by zip codes and print
+		
 	} 
 
 	public void printByPatient() { //sort by patient and print

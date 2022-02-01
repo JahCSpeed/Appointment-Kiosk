@@ -21,7 +21,7 @@ public class Date implements Comparable<Date> {
 		this.month = cal.get(Calendar.MONTH);
 		this.day = cal.get(Calendar.DATE);
 	}
-	public Date(int futureIncrease) {//create an object with todays date (see Calendar class)
+	public Date(int futureIncrease) {//create an object with a date a year in advance (see Calendar class)
 		Calendar cal = Calendar.getInstance();
 		this.year = cal.get(Calendar.YEAR) + futureIncrease;
 		this.month = cal.get(Calendar.MONTH);
@@ -87,7 +87,7 @@ public class Date implements Comparable<Date> {
 			return false;
 		}else if(year % CENTENNIAL != 0) {
 			return true;
-		}else if(year % CENTENNIAL == 0) {
+		}else if(year % QUATERCENTENNIAL != 0) {
 			return false;
 		}else {
 			return true;
@@ -110,10 +110,10 @@ public class Date implements Comparable<Date> {
 	public void parseDate(String date) {
 		String[] tokens = date.split("/");
 		try {
-			this.month = Integer.parseInt(tokens[0]) -1;
+			this.month = Integer.parseInt(tokens[0]) - 1;
 			this.day = Integer.parseInt(tokens[1]);
 			this.year = Integer.parseInt(tokens[2]);
-		}catch(Exception e) {}
+		}catch(NumberFormatException e) {}
 		
 		
 	}
