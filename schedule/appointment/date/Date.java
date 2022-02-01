@@ -21,6 +21,12 @@ public class Date implements Comparable<Date> {
 		this.month = cal.get(Calendar.MONTH);
 		this.day = cal.get(Calendar.DATE);
 	}
+	public Date(int futureIncrease) {//create an object with todays date (see Calendar class)
+		Calendar cal = Calendar.getInstance();
+		this.year = cal.get(Calendar.YEAR) + futureIncrease;
+		this.month = cal.get(Calendar.MONTH);
+		this.day = cal.get(Calendar.DATE);
+	}
 
 	public boolean isValid() {
 		
@@ -43,7 +49,6 @@ public class Date implements Comparable<Date> {
 				}
 			}
 		}catch(NullPointerException e) {
-			
 			return false;
 		}
 		
@@ -51,7 +56,7 @@ public class Date implements Comparable<Date> {
 	}
 
 	/*
-	 * Compare the two dates, 0 means they are equal, -1 means they are not equal, 1 means future date
+	 * Compare the two dates, 0 means they are equal, -1 less than, 1 means future date
 	 */
 	@Override
 	public int compareTo(Date date) {
@@ -71,6 +76,8 @@ public class Date implements Comparable<Date> {
 		}
 		return -1;
 	}
+	
+	
 	
 	/*
 	 * Returns if a year is a leap year or not
@@ -125,7 +132,7 @@ public class Date implements Comparable<Date> {
 	
 	@Override
 	public String toString() {
-		return (this.month + 1) + "/" + this.day + "/" + this.year + "\n";
+		return (this.month + 1) + "/" + this.day + "/" + this.year;
 	}
 	
 	
