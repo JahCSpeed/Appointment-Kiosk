@@ -1,5 +1,10 @@
 package schedule.appointment.location;
 
+/**
+ Creates a Location based on where the appointment is scheduled.
+ The place includes the name, county, and zip code, which is used for finding or cancelling appointments.
+ @author Jah C. Speed,
+ */
 public enum Location {
 	Bridgewater("Bridgewater","08807","Somerset"),
 	Piscataway("Piscataway","08854", "Middlesex"),
@@ -15,11 +20,20 @@ public enum Location {
 		this.county = county;
 		this.name = name;
 	}
-	
+
+	/**
+	 Takes the format of the Location object and prints it out into a readable format.
+	 Prints it as Name Zip, County.
+	 */
 	public String toString() {
 		return this.name + " " + this.zipCode + ", " + this.county.toUpperCase();
 	}
-	
+
+	/**
+	 Checks if a location in question matches this object's location parameters.
+	 @param location the object to check if it matches this object.
+	 @return 0 if they are the same location, -1 otherwise.
+	 */
 	public int equals(Location location) {
 		boolean zip = this.zipCode.equals(location.zipCode);
 		boolean count = this.county.equals(location.county);

@@ -3,7 +3,7 @@ package schedule.appointment.date;
 import java.util.Calendar;
 
 /**
- The date class creates valid dates (in the mm/dd/yyyy format).
+ The date class creates valid dates in the mm/dd/yyyy format.
  Used for knowing past and future dates by comparing the date in question to today's date.
  @author Jah C Speed,
  */
