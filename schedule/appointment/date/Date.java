@@ -18,14 +18,22 @@ public class Date implements Comparable<Date> {
 	
 	public Date(String date) {//take mm/dd/yyyy and create a Date object
 		parseDate(date);
-	} 
-	
+	}
+
+	/**
+	 Constructs a Date object with today's date without any parameters needed.
+	 */
 	public Date() {//create an object with todays date (see Calendar class)
 		Calendar cal = Calendar.getInstance();
 		this.year = cal.get(Calendar.YEAR);
 		this.month = cal.get(Calendar.MONTH);
 		this.day = cal.get(Calendar.DATE);
 	}
+
+	/**
+	 Constructs a new object with the same day and month, but a later year.
+	 @param futureIncrease number of years added onto the current year.
+	 */
 	public Date(int futureIncrease) {//create an object with a date a year in advance (see Calendar class)
 		Calendar cal = Calendar.getInstance();
 		this.year = cal.get(Calendar.YEAR) + futureIncrease;
@@ -47,9 +55,6 @@ public class Date implements Comparable<Date> {
 			return false;
 		}
 
-		if((this.month == 1) && (this.day > 29) && (!isLeapYear(this.year))){
-			return false;
-		}
 		
 		try {
 			if(isLeapYear(this.year)) {
@@ -96,8 +101,10 @@ public class Date implements Comparable<Date> {
 	
 	
 	
-	/*
-	 * Returns if a year is a leap year or not
+	/**
+	 Checks if the year is a leap year or not based on conditions for a leap year.
+	 @param year the year being checked.
+	 @return true if the year is a leap year, false otherwise.
 	 */
 	private boolean isLeapYear(int year) {
 		if(year % QUADRENNIAL != 0) {
@@ -111,8 +118,12 @@ public class Date implements Comparable<Date> {
 		}
 	}
 	
-	/*
-	 * Checks if an int is in between a specific range of numbers
+	/**
+	 Checks if an int is in between a specific range of numbers
+	 @param input the int being checked.
+	 @param lowerBound the lowest number the int can be.
+	 @param upperBound the highest number the int can be.
+	 @return true if the int falls within range, false otherwise
 	 */
 	private boolean checkRange(int input, int lowerBound, int upperBound) {
 		if(input > upperBound || input < lowerBound) {
@@ -135,8 +146,10 @@ public class Date implements Comparable<Date> {
 		
 	}
 	
-	/*
-	 * Get the correct month from Months class for days in said month
+	/**
+	 Get the correct month from Months class for days in said month
+	 @param id the identification code for a specific month.
+	 @return month the correct month being asked for
 	 */
 	public Months getMonth(int id) {
 		for(Months month : Months.values()) {
