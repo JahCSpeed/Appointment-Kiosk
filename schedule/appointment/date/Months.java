@@ -1,6 +1,9 @@
 package schedule.appointment.date;
-/*
- * Enum class to store the total days in a month on a regular year and leap year
+/**
+ The Months class to store information about the months of the year.
+ An enum class that gives each month an id to identify as well as the
+ days in it on both leap and non-leap years.
+ @author Jah C. Speed,
  */
 public enum Months {
 	January(0,31,31),
