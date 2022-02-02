@@ -1,5 +1,11 @@
 package schedule.appointment.timeSlot.time;
 
+/**
+ The time class defines the available and valid times to schedule.
+ Creates a time object in a 24-hour time with the constraints and
+ time intervals as specified.
+ @Author Jah C. Speed
+ */
 public class Time implements Comparable<Time> {
 	private int hour;
 	private int minute;

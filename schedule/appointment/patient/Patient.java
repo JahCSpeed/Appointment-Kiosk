@@ -2,6 +2,12 @@ package schedule.appointment.patient;
 
 import schedule.appointment.date.Date;
 
+/**
+ The Patient class creates necessary information for a patient object.
+ Gives the patient object their first and last name as well as their date-of-birth.
+ Patient objects can compare to one another to see if they are the same patient or not.
+ @Author Jah C. Speed,
+ */
 public class Patient implements Comparable<Patient> {
 	
 	private String fname;
