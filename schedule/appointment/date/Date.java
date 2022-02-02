@@ -15,7 +15,11 @@ public class Date implements Comparable<Date> {
 	public static final int QUADRENNIAL = 4;
 	public static final int CENTENNIAL = 100;
 	public static final int QUATERCENTENNIAL = 400;
-	
+
+	/**
+	 A constructor to create a date from a mm/dd/yyyy format date.
+	 @param date the mm/dd/yyyy format that will be turned into a date object.
+	 */
 	public Date(String date) {//take mm/dd/yyyy and create a Date object
 		parseDate(date);
 	}
@@ -121,8 +125,8 @@ public class Date implements Comparable<Date> {
 	/**
 	 Checks if an int is in between a specific range of numbers
 	 @param input the int being checked.
-	 @param lowerBound the lowest number the int can be.
-	 @param upperBound the highest number the int can be.
+	        lowerBound the lowest number the int can be.
+	        upperBound the highest number the int can be.
 	 @return true if the int falls within range, false otherwise
 	 */
 	private boolean checkRange(int input, int lowerBound, int upperBound) {
@@ -132,8 +136,9 @@ public class Date implements Comparable<Date> {
 		return true;
 	}
 	
-	/*
-	 * Parse the date by month/day/year
+	/**
+	 Takes a mm/dd/yyyy date and turns it into legible tokens to create a date object.
+	 @param date a mm/dd/yyyy date to find the specific values of.
 	 */
 	public void parseDate(String date) {
 		String[] tokens = date.split("/");
@@ -159,11 +164,24 @@ public class Date implements Comparable<Date> {
 		}
 		return null;
 	}
-	
+
+	/**
+	 Prints out the specific date into a mm/dd/yyyy format.
+	 @return a string of the object's date in mm/dd/yyyy format.
+	 */
 	@Override
 	public String toString() {
 		return (this.month + 1) + "/" + this.day + "/" + this.year;
 	}
-	
-	
+
+	/**
+	 Testbed main, used for testing this specific class to ensure all
+	 functions and methodologies work. See test case number next to each print statement.
+	 */
+	public static void main(){
+		Date date1 = new Date("10/09/2000");
+		int same_date = date1.compareTo(date1);
+		System.out.println("Expected output: 1. Result: " + same_date);
+
+	}
 }
