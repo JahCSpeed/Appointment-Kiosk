@@ -28,4 +28,11 @@ public class Timeslot implements Comparable<Timeslot> {
 		return -1;
 	}
 	
+	public Time getTime() {
+		return this.time;
+	}
+	
+	public Date getDate() {
+		return this.date;
+	}
 }

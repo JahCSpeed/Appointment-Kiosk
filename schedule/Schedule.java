@@ -1,8 +1,7 @@
 package schedule;
-
 import schedule.appointment.Appointment;
 import schedule.appointment.patient.Patient;
-
+import schedule.appointment.timeSlot.time.Time;
 public class Schedule {
 	
 	private Appointment [] appointments;
@@ -68,6 +67,9 @@ public class Schedule {
 	public void print() { //print all the appointments in current order
 		System.out.println("\n" + "*list of appointments in the schedule*");
 		for(int i = ZERO; i < this.numAppts; i++) {
+			if(this.appointments[i] == null) {
+				
+			}
 			System.out.println(this.appointments[i].toString());
 		}
 		System.out.println("*end of schedule*" + "\n");
@@ -99,7 +101,37 @@ public class Schedule {
 		return this.find(appt);
 	}
 	public void printByZip() { //sort by zip codes and print
-		
+		Appointment[] sortAppt = this.appointments;
+		int size = sortAppt.length;
+		for (int i = 0; i < size - 1; i++) {
+		      int min_idx = i;
+		      for (int j = i + 1; j < size; j++) {
+		    	  if(sortAppt[j] == null) {
+		    		  break;
+		    	  }
+		    	  String zip1 = sortAppt[j].getLocation().getZipCode();
+		    	  String zip2 = sortAppt[min_idx].getLocation().getZipCode();
+		        if (zip1.compareTo(zip2) < 0) {
+		          min_idx = j;
+		        }
+		        if(zip1.compareTo(zip2) == 0) {
+		        	Time apptTime1 =  sortAppt[j].getTimeslot().getTime();
+		        	Time apptTime2 =  sortAppt[min_idx].getTimeslot().getTime();
+		        	if(apptTime1.compareTo(apptTime2) == -1) {
+		        		min_idx = j;
+		        	}
+		        }
+		      }
+		      Appointment temp = sortAppt[i];
+		      sortAppt[i] = sortAppt[min_idx];
+		      sortAppt[min_idx] = temp;
+		}
+		System.out.println("\n" + "*list of appointments by zip and time slot.");
+		for(int i = ZERO; i < this.numAppts; i++) {
+			System.out.println(sortAppt[i].toString());
+		}
+		System.out.println("*end of schedule*" + "\n");
+		  
 	} 
 
 	public void printByPatient() { //sort by patient and print

@@ -28,7 +28,7 @@ public class Appointment {
 	
 	@Override
 	public String toString() { 
-		return patient.toString() + ", Appointment detial: " + slot.toString() + " "
+		return patient.toString() + ", Appointment detail: " + slot.toString() + " "
 			+ this.location.toString();
 	}
 	

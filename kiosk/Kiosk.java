@@ -1,7 +1,6 @@
 package kiosk;
 
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 import schedule.Schedule;
 import schedule.appointment.Appointment;
@@ -11,13 +10,11 @@ import schedule.appointment.patient.Patient;
 import schedule.appointment.timeSlot.Timeslot;
 import schedule.appointment.timeSlot.time.Time;
 
-@SuppressWarnings("unused")
 public class Kiosk {
 	//Will determine if the while loop runs or not
 	private boolean isRunning;
 	//Scanner to read userInput
 	private Scanner scanInput;
-	private String delim;
 	private Schedule mainSchedule;
 	
 	
@@ -25,7 +22,6 @@ public class Kiosk {
 	public Kiosk() {
 		//Initialize instance variables
 		this.isRunning = false;
-		this.delim = "\n";
 		this.scanInput = new Scanner(System.in);
 		this.mainSchedule = new Schedule();
 				
@@ -54,7 +50,7 @@ public class Kiosk {
 			Timeslot apptTimeslot = null;
 			Location appLocal = null;
 			int intendingCommand = -1;
-			for(int i = 0; i < tokens.length; i++) {
+			for(int i = 0; i < tokens.length;) {
 				try {
 					intendingCommand = getCommand(tokens[i++]);
 					
@@ -100,8 +96,10 @@ public class Kiosk {
 				}
 				break;
 			case 1:
-				if(!this.mainSchedule.remove(appt)) {
+				if(this.mainSchedule.remove(appt)) {
 					System.out.println("Appointment cancelled.");
+				}else {
+					System.out.println("Not cancelled, appointment does not exist.");
 				}
 				break;
 			case 2:
@@ -118,6 +116,7 @@ public class Kiosk {
 				this.mainSchedule.print();
 				return 0;
 			case 4:
+				this.mainSchedule.printByZip();
 				return 0;
 			case 5:
 				return 0;
@@ -240,14 +239,6 @@ public class Kiosk {
 		}
 		if(this.mainSchedule.findTimeSlotForPatient(appt) != -1) {
 			System.out.println("Same patient cannot book an appointment with the same date.");
-			return false;
-		}
-		return true;
-	}
-	
-	private boolean checksBeforeRemove(Appointment appt) {
-		if(this.mainSchedule.findAppointment(appt) != -1) {
-			System.out.println("Not cancelled, appointment does not exist.");
 			return false;
 		}
 		return true;

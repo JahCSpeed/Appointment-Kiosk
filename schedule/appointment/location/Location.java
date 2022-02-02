@@ -48,5 +48,8 @@ public enum Location {
 	public String getCounty() {
 		return this.county;
 	}
+	public String getZipCode() {
+		return this.zipCode;
+	}
 
 }
