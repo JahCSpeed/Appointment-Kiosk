@@ -19,13 +19,11 @@ public class Timeslot implements Comparable<Timeslot> {
 	
 	@Override
 	public int compareTo(Timeslot slot) {
-		if( (this.date.compareTo(slot.date) == 0) && (this.time.compareTo(slot.time) == 0)) {
-			return 0;
+		if( this.date.compareTo(slot.date) == 0){
+			return this.time.compareTo(slot.getTime());
+		}else {
+			return this.date.compareTo(slot.getDate());
 		}
-		if( (this.date.compareTo(slot.date) == 1) && (this.time.compareTo(slot.time) == 1)) {
-			return 1;
-		}
-		return -1;
 	}
 	
 	public Time getTime() {

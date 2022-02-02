@@ -4,18 +4,3 @@ Example Appoitment: C 8/31/1978 Jane Doe 1/19/2022 9:15 union
 	We want to cancel this appointment but since the appt date is invalid should we
 		print ("Not cancelled, appointment does not exist."), or ("Appointment date invalid -> must be a future date.")
 		
-*list of appointments by zip and time slot.
-Jane Doe, DOB: 8/31/1978, Appointment detail: 9/19/2022, 9:15, Union 07083, UNION
-Jane Doe, DOB: 1/19/2000, Appointment detail: 12/1/2022, 9:45, Union 07083, UNION
-Chris Young, DOB: 7/31/1992, Appointment detail: 2/27/2022, 11:15, Morristown 07960, MORRIS
-April March, DOB: 1/15/2003, Appointment detail: 3/2/2022, 12:00, Morristown 07960, MORRIS
-Kate Lindsey, DOB: 5/31/2000, Appointment detail: 6/30/2022, 13:30, Princeton 08542, MERCER
-Duke Ellington, DOB: 11/1/1988, Appointment detail: 7/1/2022, 14:15, Princeton 08542, MERCER
-Duke Ellington, DOB: 1/1/1988, Appointment detail: 2/28/2022, 14:30, Bridgewater 08807, SOMERSET
-John Doe, DOB: 3/31/1995, Appointment detail: 2/28/2022, 16:45, Bridgewater 08807, SOMERSET    <--------(HERE2) Above this line
-John Doe, DOB: 12/1/1999, Appointment detail: 12/1/2022, 9:45, Bridgewater 08807, SOMERSET<---- Why is this here should'nt it be (HERE1) because the time is 9:15
-Jane Doe, DOB: 8/31/1978, Appointment detail: 12/1/2022, 12:15, Bridgewater 08807, SOMERSET <--------^
-Roy Brooks, DOB: 2/29/2008, Appointment detail: 4/30/2022, 10:30, Piscataway 08854, MIDDLESEX    <--------(HERE2) Above this line
-Roy Brooks, DOB: 3/29/2008, Appointment detail: 4/30/2022, 15:15, Piscataway 08854, MIDDLESEX
-Jane Doe, DOB: 8/31/1978, Appointment detail: 7/19/2022, 9:15, Piscataway 08854, MIDDLESEX  <---- Why is this here should'nt it be (HERE2) because the time is 9:15
-*end of schedule.

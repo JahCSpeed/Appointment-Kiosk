@@ -1,7 +1,6 @@
 package schedule;
 import schedule.appointment.Appointment;
 import schedule.appointment.patient.Patient;
-import schedule.appointment.timeSlot.time.Time;
 public class Schedule {
 	
 	private Appointment [] appointments;
@@ -115,9 +114,7 @@ public class Schedule {
 		          min_idx = j;
 		        }
 		        if(zip1.compareTo(zip2) == 0) {
-		        	Time apptTime1 =  sortAppt[j].getTimeslot().getTime();
-		        	Time apptTime2 =  sortAppt[min_idx].getTimeslot().getTime();
-		        	if(apptTime1.compareTo(apptTime2) == -1) {
+		        	if(sortAppt[j].getTimeslot().compareTo(sortAppt[min_idx].getTimeslot()) == -1) {
 		        		min_idx = j;
 		        	}
 		        }
