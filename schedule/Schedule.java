@@ -130,7 +130,7 @@ public class Schedule {
 		for(int i = ZERO; i < this.numAppts; i++) {
 			System.out.println(sortAppt[i].toString());
 		}
-		System.out.println("*end of schedule*" + "\n");
+		System.out.println("*end of schedule." + "\n");
 		  
 	} 
 
@@ -171,7 +171,7 @@ public class Schedule {
 		for(int i = ZERO; i < this.numAppts; i++) {
 			System.out.println(sortAppt[i].toString());
 		}
-		System.out.println("*end of schedule*" + "\n");
+		System.out.println("*end of list" + "\n");
 		  
 	} 
 

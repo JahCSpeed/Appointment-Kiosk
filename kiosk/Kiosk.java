@@ -57,26 +57,13 @@ public class Kiosk {
 					if(this.doNoNameCommand(intendingCommand) == 0) {return;}
 					
 					patientDob = readDate(tokens[i++]);
-					
-					if(!this.checkValidBDate(patientDob)) {break;}
-					
 					patient = new Patient(tokens[i++],tokens[i++],patientDob);
-					
 					apptDate = readDate(tokens[i++]);
-					
-					if(!this.checkValidAppDate(apptDate)) {break;}
-					
 					apptTime = readTime(tokens[i++]);
-					
-					if(!this.checkTime(apptTime)) {break;}
-					
 					apptTimeslot = new Timeslot(apptDate, apptTime);
-					
 					appLocal = this.readLocation(tokens[i++]);
-					
-					if(!this.checkLocation(appLocal)) {break;}
 				}catch(ArrayIndexOutOfBoundsException e) {}
-				doCommand(intendingCommand, patient, apptTimeslot, appLocal);
+					doCommand(intendingCommand, patient, apptTimeslot, appLocal);
 				break;
 			}
 			
@@ -187,7 +174,7 @@ public class Kiosk {
 	
 	
 	private void endKiosk() {
-		System.out.println("Kiosk session ended.");
+		System.out.println("Kiosk session ended");
 		this.isRunning = !this.isRunning;
 	}
 	
@@ -230,6 +217,10 @@ public class Kiosk {
 	}
 	
 	private boolean checksBeforeAdd(Appointment appt) {
+		if(!this.checkValidBDate(appt.getPatient().getDOB())) {return false;}
+		if(!this.checkValidAppDate(appt.getTimeslot().getDate())) {return false;}
+		if(!this.checkTime(appt.getTimeslot().getTime())) {return false;}
+		if(!this.checkLocation(appt.getLocation())) {return false;}
 		if(this.mainSchedule.findAppointment(appt) != -1) {
 			System.out.println("Same appointment exists in the schedule.");
 			return false;
