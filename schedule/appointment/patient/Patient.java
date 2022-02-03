@@ -35,5 +35,17 @@ public class Patient implements Comparable<Patient> {
 		}
 		return -1;
 	}
+	
+	public String getFirstName() {
+		return this.fname;
+	}
+	
+	public String getLastName() {
+		return this.lname;
+	}
+	
+	public Date getDOB() {
+		return this.dob;
+	}
 
 }

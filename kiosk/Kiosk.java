@@ -119,6 +119,7 @@ public class Kiosk {
 				this.mainSchedule.printByZip();
 				return 0;
 			case 5:
+				this.mainSchedule.printByPatient();
 				return 0;
 			case 6:
 				this.endKiosk();

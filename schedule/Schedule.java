@@ -1,5 +1,6 @@
 package schedule;
 import schedule.appointment.Appointment;
+import schedule.appointment.date.Date;
 import schedule.appointment.patient.Patient;
 public class Schedule {
 	
@@ -14,7 +15,7 @@ public class Schedule {
 		
 	}
 	private int find(Appointment appt) { //return the index, or NOT_FOUND
-		for(int i = ZERO; i < this.numAppts; i++) {
+		for(int i = ZERO;i < this.numAppts; i++) {
 			if(this.appointments[i].equals(appt)) {
 				return i;
 			}
@@ -55,9 +56,11 @@ public class Schedule {
 	 * Removes all patients by a given name
 	 */
 	public boolean removeAll(Patient patient) {
-		for(int i = ZERO; i < this.numAppts; i++) {
+		for(int i = ZERO;  i < this.numAppts; i++) {
 			if(this.appointments[i].getPatient().compareTo(patient) == ZERO) {
-				this.remove(this.appointments[i]);
+				if(this.remove(this.appointments[i])) {
+					i--;
+				}
 			}
 		}
 		return true;
@@ -66,9 +69,9 @@ public class Schedule {
 	public void print() { //print all the appointments in current order
 		System.out.println("\n" + "*list of appointments in the schedule*");
 		for(int i = ZERO; i < this.numAppts; i++) {
-			if(this.appointments[i] == null) {
+			//if(this.appointments[i] == null) {
 				
-			}
+			//}
 			System.out.println(this.appointments[i].toString());
 		}
 		System.out.println("*end of schedule*" + "\n");
@@ -132,7 +135,44 @@ public class Schedule {
 	} 
 
 	public void printByPatient() { //sort by patient and print
-	
+		Appointment[] sortAppt = this.appointments;
+		int size = sortAppt.length;
+		for (int i = 0; i < size - 1; i++) {
+		      int min_idx = i;
+		      for (int j = i + 1; j < size; j++) {
+		    	  if(sortAppt[j] == null) {
+		    		  break;
+		    	  }
+		    	  String lname1 = sortAppt[j].getPatient().getLastName();
+		    	  String lname2 = sortAppt[min_idx].getPatient().getLastName();
+		    	  if (lname1.compareTo(lname2) < 0) {
+		    		  min_idx = j;
+		    	  }
+		    	  if(lname1.compareTo(lname2) == 0) {
+		    		  String fname1 = sortAppt[j].getPatient().getFirstName();
+		    		  String fname2 = sortAppt[min_idx].getPatient().getFirstName();
+		    		  if (fname1.compareTo(fname2) < 0) {
+			    		  min_idx = j;
+			    	  }
+		    		  if(fname1.compareTo(fname2) == 0) {
+			    		  Date date1 = sortAppt[j].getPatient().getDOB();
+			    		  Date date2 = sortAppt[min_idx].getPatient().getDOB();
+			    		  if (date1.compareTo(date2) < 0) {
+				    		  min_idx = j;
+				    	  }
+			    	  }
+		    	  }
+		      }
+		      Appointment temp = sortAppt[i];
+		      sortAppt[i] = sortAppt[min_idx];
+		      sortAppt[min_idx] = temp;
+		}
+		System.out.println("\n" + "*list of appointments by patient.");
+		for(int i = ZERO; i < this.numAppts; i++) {
+			System.out.println(sortAppt[i].toString());
+		}
+		System.out.println("*end of schedule*" + "\n");
+		  
 	} 
 
 
