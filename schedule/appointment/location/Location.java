@@ -15,6 +15,12 @@ public enum Location {
 	private final String zipCode;
 	private final String county;
 	private final String name;
+	/**
+	 
+	 @param name
+	 		zipCode
+	 		county
+	 */
 	private Location(String name, String zipCode,String county) {
 		this.zipCode = zipCode;
 		this.county = county;
@@ -23,7 +29,7 @@ public enum Location {
 
 	/**
 	 Takes the format of the Location object and prints it out into a readable format.
-	 @return The location in Name Zip, County format, all in a string.
+	 @return The location in "Name Zip, County" format, all in a string.
 	 */
 	public String toString() {
 		return this.name + " " + this.zipCode + ", " + this.county.toUpperCase();

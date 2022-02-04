@@ -15,18 +15,31 @@ public class Patient implements Comparable<Patient> {
 	private String lname;
 
 	private Date dob;
-
+	/**
+	 Constructs a person object
+	 @param fname
+	  		lname
+	 		dob
+	 */
 	public Patient(String fname, String lname,Date dob) {
 		this.fname = fname;
 		this.lname = lname;
 		this.dob = dob;
 		
 	}
+	/**
+	 Takes this patient and returns their information as a string.
+	 @return A string in "fname lname, DOB: dob" format
+	 */
 	@Override
 	public String toString() {
 		return fname + " " + lname + ", DOB: " + dob.toString();
 	}
-
+	/**
+	 Compares this patient to another patient of interest and sees if
+	 they are the same person (same fname, lname, and dob).
+	 @return 0 if they are the same person, -1 otherwise
+	 */
 	@Override
 	public int compareTo(Patient patient) {
 		if(this.fname.equals(patient.fname) && this.lname.equals(lname) 
