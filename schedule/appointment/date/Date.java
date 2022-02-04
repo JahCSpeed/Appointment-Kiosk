@@ -178,17 +178,17 @@ public class Date implements Comparable<Date> {
 	 Testbed main, used for testing this specific class to ensure all functions and methodologies, mainly compareTo,
 	 work. See test case number before each print statement.
 	 */
-	public static void main(){
+	public static void main(String[] args){
 		Date date1 = new Date("10/09/2000");
 		int same_date = date1.compareTo(date1); //Test Case 1
-		System.out.println("Expected output: 0. Result: " + same_date + ". " + (same_date == 0? "True":"False"));
-		int one_yr_later = date1.compareTo(new Date("10/09/2001")); //Test Case 2
-		System.out.println("Expected output: 1. Result: " + one_yr_later + (one_yr_later == 1? ". True": ". False"));
-		int one_mnth_later = date1.compareTo(new Date("11/09/2000")); //Test Case 3
-		System.out.println("Expected output: 1. Result: " + one_mnth_later + (one_mnth_later == 1? ". True": ". False"));
-		int one_day_later = date1.compareTo(new Date("10/10/2000"));
-		System.out.println("Expected output: 1. Result: " + one_day_later + (one_day_later == 1? ". True": ". False"));
-		int past_date = date1.compareTo(new Date("10/09/1999"));
-		System.out.println("Expected output: -1. Result: " + past_date + (past_date == -1? ". True": ". False"));
+		System.out.println("Test Case 1: Same Date \n\tExpected output: 0. Result: " + same_date + ". " + (same_date == 0? "True":"False"));
+		int one_yr_later = new Date("10/09/2001").compareTo(date1); //Test Case 2
+		System.out.println("Test Case 2: Future Date by 1 Year \n\tExpected output: 1. Result: " + one_yr_later + (one_yr_later == 1? ". True": ". False"));
+		int one_mnth_later = new Date("11/09/2000").compareTo(date1); //Test Case 3
+		System.out.println("Test Case 3: Future Date by 1 Month \n\tExpected output: 1. Result: " + one_mnth_later + (one_mnth_later == 1? ". True": ". False"));
+		int one_day_later = new Date("10/10/2000").compareTo(date1);
+		System.out.println("Test Case 4: Future Date by 1 Day \n\tExpected output: 1. Result: " + one_day_later + (one_day_later == 1? ". True": ". False"));
+		int past_date = new Date("10/09/1999").compareTo(date1);
+		System.out.println("Test Case 5: Past Date \n\tExpected output: -1. Result: " + past_date + (past_date == -1? ". True": ". False"));
 	}
 }

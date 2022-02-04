@@ -1,5 +1,6 @@
 package schedule.appointment.timeSlot.time;
 
+
 /**
  The time class defines the available and valid times to schedule.
  Creates a time object in a 24-hour time with the constraints and
@@ -76,5 +77,20 @@ public class Time implements Comparable<Time> {
 		}catch(Exception e) {}
 		
 		
+	}
+	/**
+	 Testbed main, used for testing this specific class to ensure all functions and methodologies, mainly compareTo,
+	 work. See test case number before each print statement.
+	 */
+	public static void main(String[] args){
+		Time time1 = new Time("9:00");
+		int same_time = time1.compareTo(time1); //Test Case 1
+		System.out.println("Test Case 1: Same Time \n\tExpected output: 0. Result: " + same_time + ". " + (same_time == 0? "True":"False"));
+		int one_hr_later = new Time("10:00").compareTo(time1); //Test Case 2
+		System.out.println("Test Case 2: Future Time by 1 Hour \n\tExpected output: 1. Result: " + one_hr_later + (one_hr_later == 1? ". True": ". False"));
+		int one_min_later = new Time("9:01").compareTo(time1); //Test Case 3
+		System.out.println("Test Case 3: Future Date by 1 Minute \n\tExpected output: 1. Result: " + one_min_later + (one_min_later == 1? ". True": ". False"));
+		int past_time = new Time("8:59").compareTo(time1);
+		System.out.println("Test Case 4: Past Time \n\tExpected output: -1. Result: " + past_time + (past_time == -1? ". True": ". False"));
 	}
 }
