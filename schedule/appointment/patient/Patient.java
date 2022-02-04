@@ -47,5 +47,18 @@ public class Patient implements Comparable<Patient> {
 	public Date getDOB() {
 		return this.dob;
 	}
+	/**
+	 Testbed main, used for testing this specific class to ensure all functions and methodologies, mainly compareTo,
+	 work. See test case number before each print statement.
+	 */
+	public static void main(String[] args){
+		Patient patient1 = new Patient("Jah","Caffie-Speed",new Date("5/6/2001"));
+		Patient patient2 = new Patient("Lia","Shekaran",new Date("5/17/2000"));
+		int same_person = patient1.compareTo(patient1); //Test Case 1
+		System.out.println("Test Case 1: Same Person \n\tExpected output: 0. Result: " + same_person + ". " + (same_person == 0? "True":"False"));
+		int dif_person = patient2.compareTo(patient1); //Test Case 2
+		System.out.println("Test Case 2: Different Person \n\tExpected output: -1. Result: " + dif_person + (dif_person == 1? ". True": ". False"));
+		
+	}
 
 }
