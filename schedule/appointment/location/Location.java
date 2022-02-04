@@ -23,7 +23,7 @@ public enum Location {
 
 	/**
 	 Takes the format of the Location object and prints it out into a readable format.
-	 Prints it as Name Zip, County.
+	 @return The location in Name Zip, County format, all in a string.
 	 */
 	public String toString() {
 		return this.name + " " + this.zipCode + ", " + this.county.toUpperCase();
@@ -44,10 +44,17 @@ public enum Location {
 		}
 		return -1;
 	}
-	
+	/**
+	 Takes this Location and has it return the county it is from.
+	 @return The county of this Location
+	 */
 	public String getCounty() {
 		return this.county;
 	}
+	/**
+	 Takes this Location and has it return the zip code it has.
+	 @return The zip code of this Location
+	 */
 	public String getZipCode() {
 		return this.zipCode;
 	}

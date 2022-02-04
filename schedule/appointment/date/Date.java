@@ -175,20 +175,23 @@ public class Date implements Comparable<Date> {
 	}
 
 	/**
-	 Testbed main, used for testing this specific class to ensure all functions and methodologies, mainly compareTo,
+	 Testbed main, used for testing this specific class to ensure all functions and methodologies, mainly isValid,
 	 work. See test case number before each print statement.
 	 */
 	public static void main(String[] args){
-		Date date1 = new Date("10/09/2000");
-		int same_date = date1.compareTo(date1); //Test Case 1
-		System.out.println("Test Case 1: Same Date \n\tExpected output: 0. Result: " + same_date + ". " + (same_date == 0? "True":"False"));
-		int one_yr_later = new Date("10/09/2001").compareTo(date1); //Test Case 2
-		System.out.println("Test Case 2: Future Date by 1 Year \n\tExpected output: 1. Result: " + one_yr_later + (one_yr_later == 1? ". True": ". False"));
-		int one_mnth_later = new Date("11/09/2000").compareTo(date1); //Test Case 3
-		System.out.println("Test Case 3: Future Date by 1 Month \n\tExpected output: 1. Result: " + one_mnth_later + (one_mnth_later == 1? ". True": ". False"));
-		int one_day_later = new Date("10/10/2000").compareTo(date1);
-		System.out.println("Test Case 4: Future Date by 1 Day \n\tExpected output: 1. Result: " + one_day_later + (one_day_later == 1? ". True": ". False"));
-		int past_date = new Date("10/09/1999").compareTo(date1);
-		System.out.println("Test Case 5: Past Date \n\tExpected output: -1. Result: " + past_date + (past_date == -1? ". True": ". False"));
+		boolean not_a_date = new Date("0/00/1000").isValid();
+		System.out.println("Test Case 1: Not a Date \n\tExpected output: False. Result: " + not_a_date + (!not_a_date? ". True":". False"));
+		boolean outside_day = new Date("1/5000/2020").isValid();
+		System.out.println("Test Case 2: Day Invalid \n\tExpected output: False. Result: " + outside_day + (!outside_day? ". True":". False"));
+		boolean outside_month = new Date("13/02/2022").isValid();
+		System.out.println("Test Case 3: Not a Month \n\tExpected output: False. Result: " + outside_month + (!outside_month? ". True":". False"));
+		boolean outside_year = new Date("1/01/10000").isValid();
+		System.out.println("Test Case 4: Year Out-of-Bounds \n\tExpected output: False. Result: " + outside_year + (!outside_year? ". True":". False"));
+		boolean bad_February = new Date("2/31/2023").isValid();
+		System.out.println("Test Case 5: February Invalid \n\tExpected output: False. Result: " + bad_February + (!bad_February? ". True":". False"));
+		boolean good_Feb = new Date("2/29/2020").isValid();
+		System.out.println("Test Case 6: February Valid \n\tExpected output: True. Result: " + good_Feb + (good_Feb? ". True":". False"));
+		boolean good_date1 = new Date("2/10/2015").isValid();
+		System.out.println("Test Case 7: Valid Date \n\tExpected output: True. Result: " + good_date1 + (good_date1? ". True":". False"));
 	}
 }
