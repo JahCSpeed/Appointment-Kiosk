@@ -3,7 +3,7 @@ package schedule.appointment.location;
 /**
  Creates a Location based on where the appointment is scheduled.
  The place includes the name, county, and zip code, which is used for finding or cancelling appointments.
- @author Jah C. Speed,
+ @author Jah C. Speed
  */
 public enum Location {
 	Bridgewater("Bridgewater","08807","Somerset"),
@@ -16,10 +16,11 @@ public enum Location {
 	private final String county;
 	private final String name;
 	/**
-	 
-	 @param name
-	 		zipCode
-	 		county
+	 Constructs a Location object given its name, its respective zipcode, and the county
+	 it belongs to.
+	 @param name The name of the place the immunization is held at.
+	 		zipCode The zip code of the place the immunization is held at.
+	 		county The name of the county of the place.
 	 */
 	private Location(String name, String zipCode,String county) {
 		this.zipCode = zipCode;
@@ -50,6 +51,7 @@ public enum Location {
 		}
 		return -1;
 	}
+	
 	/**
 	 Takes this Location and has it return the county it is from.
 	 @return The county of this Location
@@ -57,6 +59,7 @@ public enum Location {
 	public String getCounty() {
 		return this.county;
 	}
+	
 	/**
 	 Takes this Location and has it return the zip code it has.
 	 @return The zip code of this Location

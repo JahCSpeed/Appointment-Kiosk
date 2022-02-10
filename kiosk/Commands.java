@@ -1,7 +1,10 @@
 package kiosk;
 
-/*
- * Enum class for all valid commands
+/**
+ The commands class holds all the valid command information for the kiosk to use.
+ It lists all the valid commands as ids for use in the kiosk, where further
+ actions will be done depending on the command.
+ @author Jah C. Speed
  */
 public enum Commands {
 	B(0),
@@ -12,7 +15,11 @@ public enum Commands {
 	PP(5),
 	Q(6);
 	public final int id;
-
+	
+	/**
+	 Constructs the identification code for each command.
+	 @param id The identification code for the given command.
+	 */
 	private Commands(int id) {
 		this.id = id;
 	}

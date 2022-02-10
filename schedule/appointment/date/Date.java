@@ -5,7 +5,7 @@ import java.util.Calendar;
 /**
  The date class creates valid dates in the mm/dd/yyyy format.
  Used for knowing past and future dates by comparing the date in question to today's date.
- @author Jah C Speed,
+ @author Jah C Speed, Abe Vitangcol
  */
 public class Date implements Comparable<Date> {
 	private int year;
@@ -35,7 +35,7 @@ public class Date implements Comparable<Date> {
 	}
 
 	/**
-	 Constructs a new object with the same day and month, but a later year.
+	 Constructs a new object with the same day and month, but later year(s).
 	 @param futureIncrease number of years added onto the current year.
 	 */
 	public Date(int futureIncrease) {//create an object with a date a year in advance (see Calendar class)

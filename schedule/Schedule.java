@@ -2,6 +2,13 @@ package schedule;
 import schedule.appointment.Appointment;
 import schedule.appointment.date.Date;
 import schedule.appointment.patient.Patient;
+
+/**
+ The schedule class holds all appointments and keeps track of them.
+ Holds the number of appointments and all appointments in an array.
+ Can find, add, remove, and print out appointments when prompted.
+ @author Jah C. Speed, Abe Vitangcol
+ */
 public class Schedule {
 	
 	private Appointment [] appointments;
@@ -9,11 +16,23 @@ public class Schedule {
 	private final int INCREASESIZE = 4;
 	private final int NOT_FOUND = -1;
 	private final int ZERO = 0;
+	
+	/**
+	 Initializes the array of scheduled appointments.
+	 Sets the current number of appointments to zero
+	 as well as the size of the array of appointments.
+	 */
 	public Schedule() {
 		this.appointments = new Appointment[ZERO];
 		this.numAppts = ZERO;
 		
 	}
+	
+	/**
+	 Finds a specific appointment in this array of appointments and returns the index.
+	 @param appt The specific appointment to be found.
+	 @return The index of the appointment found, NOT_FOUND (which is -1) otherwise.
+	 */
 	private int find(Appointment appt) { //return the index, or NOT_FOUND
 		for(int i = ZERO;i < this.numAppts; i++) {
 			if(this.appointments[i].equals(appt)) {
@@ -22,15 +41,24 @@ public class Schedule {
 		}
 		return NOT_FOUND;
 	} 
-
-	private void grow() { //increase the capacity of the container by 4
+	
+	/**
+	 Grows the capacity of the appointment array by 4.
+	 Helpful especially when the old array is out of space.
+	 */
+	private void grow() {
 		Appointment [] prevList = this.appointments;
 		this.appointments = new Appointment[this.numAppts + INCREASESIZE];
 		for(int i = ZERO; i < prevList.length; i++) {
 			this.appointments[i] = prevList[i];
 		}
 	}
-
+	
+	/**
+	 Adds an appointment into the array if there is room, and grows the array if there is no room.
+	 @param appt The specific appointment to be added to this array.
+	 @return true if this operation was successful.
+	 */
 	public boolean add(Appointment appt) {
 		if(this.numAppts == this.appointments.length) {
 			this.grow();
@@ -39,6 +67,13 @@ public class Schedule {
 		return true;
 	}
 
+	/**
+	 Removes a specific appointment in this array and updates the array accordingly.
+	 Finds the appointment, shifts all appointments after it left one index,
+	 then makes the last index empty. The number of appointments goes down by 1.
+	 @param appt The specific appointment to be removed from this array.
+	 @return NOT_FOUND if the appointment wasn't found, true otherwise.
+	 */
 	public boolean remove(Appointment appt) {
 		int index = this.find(appt);
 		if(index == NOT_FOUND) {
@@ -52,8 +87,10 @@ public class Schedule {
 		return true;
 	}
 	
-	/*
-	 * Removes all patients by a given name
+	/**
+	 Removes all patients of given specifications and updates the array accordingly.
+	 @param patient The specific patient to be removed (includes fname, lname, dob)
+	 @return true if this operation was successful.
 	 */
 	public boolean removeAll(Patient patient) {
 		for(int i = ZERO;  i < this.numAppts; i++) {
@@ -65,7 +102,11 @@ public class Schedule {
 		}
 		return true;
 	}
-
+	
+	/**
+	 Takes the current array and prints out all the appointments in it and in order.
+	 No other specifications have been done to the array.
+	 */
 	public void print() { //print all the appointments in current order
 		System.out.println("\n" + "*list of appointments in the schedule*");
 		for(int i = ZERO; i < this.numAppts; i++) {
@@ -77,6 +118,11 @@ public class Schedule {
 		System.out.println("*end of schedule*" + "\n");
 	}
 	
+	/**
+	 Finds the index of an appointment with a specific time slot at a specific location.
+	 @param appt The specific appointment of interest.
+	 @return the index of the appointment if it was found in the array, NOT_FOUND otherwise.
+	 */
 	public int findTimeSlotAtLocation(Appointment appt) { //return the index, or NOT_FOUND
 		for(int i = ZERO; i < this.numAppts; i++) {
 			if(this.appointments[i].getTimeslot().compareTo(appt.getTimeslot()) == ZERO && 
@@ -88,6 +134,11 @@ public class Schedule {
 		return NOT_FOUND;
 	}
 	
+	/**
+	 Finds the index of an appointment with a specific time slot for a specific person.
+	 @param appt The specific appointment of interest.
+	 @return the index of the appointment if it was found in the array, NOT_FOUND otherwise.
+	 */
 	public int findTimeSlotForPatient(Appointment appt) { //return the index, or NOT_FOUND
 		for(int i = ZERO; i < this.numAppts; i++) {
 			if(this.appointments[i].getTimeslot().compareTo(appt.getTimeslot()) == ZERO &&
@@ -99,9 +150,20 @@ public class Schedule {
 		return NOT_FOUND;
 	}
 	
+	/**
+	 Finds a specific appointment in this array of appointments.
+	 @param appt The specific appointment to be found.
+	 @return The specific appointment if found, NOT_FOUND otherwise.
+	 */
 	public int findAppointment(Appointment appt) {
 		return this.find(appt);
 	}
+	
+	/**
+	 Sorts the appointment array by zip code, then prints this sorted array.
+	 Takes the current appointment array and builds an empty array of equal size.
+	 Then it goes through the array multiple times to sort. It prints this sorted array afterwards.
+	 */
 	public void printByZip() { //sort by zip codes and print
 		Appointment[] sortAppt = this.appointments;
 		int size = sortAppt.length;
@@ -134,6 +196,11 @@ public class Schedule {
 		  
 	} 
 
+	/**
+	 Sorts the appointment array by patient, then prints this sorted array.
+	 Takes the current appointment array and builds an empty array of equal size.
+	 Then it goes through the array multiple times to sort. It prints this sorted array afterwards.
+	 */
 	public void printByPatient() { //sort by patient and print
 		Appointment[] sortAppt = this.appointments;
 		int size = sortAppt.length;

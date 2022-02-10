@@ -10,34 +10,44 @@ import schedule.appointment.patient.Patient;
 import schedule.appointment.timeSlot.Timeslot;
 import schedule.appointment.timeSlot.time.Time;
 
+/**
+ The Kiosk class is what enables users to schedule their appointment by writing in a specific format.
+ It knows what are errors or bad commands given to it as well as it knows all the valid commands
+ it needs to know to run. Capable to run, add, remove, print, and stop the scheduling process.
+ @author Jah C. Speed, Abe Vitangcol
+ */
 public class Kiosk {
-	//Will determine if the while loop runs or not
 	private boolean isRunning;
-	//Scanner to read userInput
 	private Scanner scanInput;
 	private Schedule mainSchedule;
 	
 	
-	
+	/**
+	 Initializes the Kiosk and sets the variables to values before the run() function is called.
+	 */
 	public Kiosk() {
-		//Initialize instance variables
 		this.isRunning = false;
 		this.scanInput = new Scanner(System.in);
 		this.mainSchedule = new Schedule();
 				
 
 	}
+	
+	/**
+	 Runs the Kiosk and sets the status to Running. It captures inputs continuously until it stops running.
+	 */
 	public void run(){
-		//Start of while loop to get user commands
 		System.out.println("Kiosk running. Ready to process transactions.");
 		this.isRunning = !this.isRunning; 
 		while(isRunning) {
 			captureInput(scanInput);
 		}
 	}
-	/*
-	 * Will capture user input, currently only does single line
-	 * NEEDS TO CAPTURE MULTIPLE LINES OF INPUT
+	
+	/**
+	 Scans the user input(s) and does command(s) based on the inputs given.
+	 Able to capture single or multiple lines of input.
+	 @param sc The scanner that scans the user inputs and parses them.
 	 */
 	private void captureInput(Scanner sc) {
 		while(sc.hasNextLine()) {
@@ -73,6 +83,14 @@ public class Kiosk {
 		sc.close();
 	}
 	
+	/**
+	 Performs a command that requires parameters to execute.
+	 Will add or remove appointments based on the command given.
+	 @param command The identification code of the command based on the enum class.
+	        patient The patient looking for an appointment.
+	        time The timeslot of the appointment wanted.
+	        local The location of the appointment booked.
+	 */
 	private void doCommand(int command, Patient patient, Timeslot time, Location local) {
 		Appointment appt = new Appointment(patient, time, local);
 		switch(command) {
@@ -97,6 +115,14 @@ public class Kiosk {
 				break;
 		}
 	}
+	
+	/**
+	 Performs a command that requires no further parameters.
+	 Will print the array with specifications based on the command, end the kiosk,
+	 or state the invalidity of the command.
+	 @param command The identification code of the command based on the enum class.
+	 @return 0 if a print or invalid branch has been reached successfully, -1 otherwise.
+	 */
 	private int doNoNameCommand(int command) {
 		switch(command) {
 			case 3:
@@ -118,10 +144,11 @@ public class Kiosk {
 				return -1;
 		}
 	}
-	/*
-	 * Will return all possible commands as int values
-	 * 
-	 * -1 means not a valid command
+	
+	/**
+	 Take a command and returns the identification code of that command for the switch cases.
+	 @param input The command input for the kiosk to execute.
+	 @return -1 if it is not a valid command, the id of the command otherwise.
 	 */
 	private int getCommand(String input) {
 		switch(input) {
@@ -147,6 +174,11 @@ public class Kiosk {
 		
 	}
 	
+	/**
+	 Reads an input and finds the proper location based on its county.
+	 @param input The location in a string format to be read.
+	 @return The proper location if found, null otherwise.
+	 */
 	private Location readLocation(String input) {
 		Location[] allLocations = Location.values();
 		for(Location l : allLocations) {
@@ -158,26 +190,37 @@ public class Kiosk {
 		return null;
 	}
 	
-	/*
-	 * Parse input string and just take the date
+	/**
+	 Parse an input string and just take the date part of it.
+	 @param input The input of the time to parse.
+	 @return The appropriate date object.
 	 */
 	private Date readDate(String input) {
 		return new Date(input);
 	}
 	
-	/*
-	 * Parse input string and just take the date
+	/**
+	 Parse an input string takes only the time part of it.
+	 @param input The input of the time to parse.
+	 @return The appropriate time object.
 	 */
 	private Time readTime(String input) {
 		return new Time(input);
 	}
 	
-	
+	/**
+	 Ends the Kiosk session, causing it to stop running.
+	 */
 	private void endKiosk() {
 		System.out.println("Kiosk session ended");
 		this.isRunning = !this.isRunning;
 	}
 	
+	/**
+	 Checks to see if the dob of the patient is a valid date for a dob.
+	 @param date The date of birth of the patient to be checked.
+	 @return false if the dob is not a valid dob (in the future / not a date), true otherwise.
+	 */
 	private boolean checkValidBDate(Date date) {
 		if(!date.isValid()) {
 			System.out.println("Invalid date of birth!");
@@ -189,6 +232,11 @@ public class Kiosk {
 		return true;
 	}
 	
+	/**
+	 Checks to see if the date of the appointment is a valid date for an appointment.
+	 @param date The date of the appointment to be checked.
+	 @return false if the date is an invalid appointment date, true otherwise.
+	 */
 	private boolean checkValidAppDate(Date date) {
 		if(!date.isValid() || date.compareTo(new Date(1)) == 1) {
 			System.out.println("Invalid appointment date!");
@@ -200,6 +248,11 @@ public class Kiosk {
 		return true;
 	}
 	
+	/**
+	 Checks to see if the time provided is a valid time and in a 15-min interval.
+	 @param time The time of the appointment to be checked.
+	 @return false if the time is an invalid appointment time, true otherwise.
+	 */
 	private boolean checkTime(Time time) {
 		if(!time.isValid()){
 			System.out.println("Invalid appointment time! Must enter a time between 9:00 and 16:45 with a 15-minute interval.");
@@ -208,6 +261,11 @@ public class Kiosk {
 		return true;
 	}
 	
+	/**
+	 Checks to see if the location given is one of the locations providing the appointment.
+	 @param local The location being checked.
+	 @return false if the location is not a valid one, true otherwise.
+	 */
 	private boolean checkLocation(Location local){
 		if(local == null) {
 			System.out.println("Invalid location!");
@@ -216,6 +274,11 @@ public class Kiosk {
 		return true;
 	}
 	
+	/**
+	 Checks to see if the appointment information is valid and can be added to the array of appointments.
+	 @param appt The appointment being checked before before being added.
+	 @return false if there is any conflict, true otherwise.
+	 */
 	private boolean checksBeforeAdd(Appointment appt) {
 		if(!this.checkValidBDate(appt.getPatient().getDOB())) {return false;}
 		if(!this.checkValidAppDate(appt.getTimeslot().getDate())) {return false;}

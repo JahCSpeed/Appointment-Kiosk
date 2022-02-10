@@ -3,7 +3,7 @@ package schedule.appointment.date;
  The Months class to store information about the months of the year.
  An enum class that gives each month an id to identify a month as well as the
  days in it on both leap and non-leap years.
- @author Jah C. Speed,
+ @author Jah C. Speed
  */
 public enum Months {
 	January(0,31,31),
@@ -22,13 +22,14 @@ public enum Months {
 	public final int id;
 	public final int days;
 	public final int leapYearDays;
-/**
- Constructor for the months, giving the months the days it has on both leap and non-leap years
- as well as the id to identify it.	
- @param id The identification number of the month, used to find the month in a smooth fashion.
- 		days The number of days the month has under normal circumstances.
-  		leapYearDays The number of days the month has when it is a leap year.
- */
+	
+	/**
+ 	 Constructor for the months, giving the months the days it has on both leap and non-leap years
+ 	 as well as the id to identify it.	
+ 	 @param id The identification number of the month, used to find the month in a smooth fashion.
+ 			days The number of days the month has under normal circumstances.
+  			leapYearDays The number of days the month has when it is a leap year.
+	 */
 	private Months(int id,int days, int leapYearDays) {
 		this.id = id;
 		this.days = days;
