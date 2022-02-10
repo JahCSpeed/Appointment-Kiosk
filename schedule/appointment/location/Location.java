@@ -3,7 +3,7 @@ package schedule.appointment.location;
 /**
  Creates a Location based on where the appointment is scheduled.
  The place includes the name, county, and zip code, which is used for finding or cancelling appointments.
- @author Jah C. Speed
+ @author Jah C. Speed, Abe Vitangcol
  */
 public enum Location {
 	Bridgewater("Bridgewater","08807","Somerset"),

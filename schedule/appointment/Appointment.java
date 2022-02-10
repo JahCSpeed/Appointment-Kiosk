@@ -8,7 +8,7 @@ import schedule.appointment.timeSlot.Timeslot;
  The appointment class creates all the necessary information regarding an appointment.
  It holds information regarding the patient, the timeslot of the appointment made, as
  well as the location the appointment will be held.
- @author Jah C. Speed
+ @author Jah C. Speed, Abe Vitangcol
  */
 public class Appointment {
 	private Patient patient;

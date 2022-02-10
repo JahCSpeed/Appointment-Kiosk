@@ -4,7 +4,7 @@ package kiosk;
  The commands class holds all the valid command information for the kiosk to use.
  It lists all the valid commands as ids for use in the kiosk, where further
  actions will be done depending on the command.
- @author Jah C. Speed
+ @author Jah C. Speed, Abe Vitangcol
  */
 public enum Commands {
 	B(0),
